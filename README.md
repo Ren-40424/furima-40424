@@ -17,7 +17,6 @@
 
 - has_many :items
 - has_many :orders
-- has_many :destinations
 
 
 
@@ -26,7 +25,7 @@
 | Column            | Type      | Options     |
 | ----------------- | --------- | ----------- |
 | user              | reference | null: false, foreign_key: true |
-| name              | text      | null: false |
+| name              | string    | null: false |
 | explanation       | text      | null: false |
 | price             | integer   | null: false |
 | category_id       | integer   | null: false |
@@ -48,13 +47,12 @@
 | ----------- | --------- | ----------- |
 | item        | reference | null: false, foreign_key: true |
 | user        | reference | null: false, foreign_key: true |
-| destination | reference | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
-- belongs_to :destination
+- has_one :destination
 
 
 
@@ -62,15 +60,14 @@
 
 | Column        | Type      | Options     |
 | ------------- | --------- | ----------- |
-| user          | reference | null: false, foreign_key: true |
+| order         | reference | null: false, foreign_key: true |
 | postal_code   | string    | null: false |
 | prefecture_id | integer   | null: false |
-| city          | text      | null: false |
-| address       | text      | null: false |
-| building_name | text      |             |
+| city          | string    | null: false |
+| address       | string    | null: false |
+| building_name | string    |             |
 | phone_number  | string    | null: false |
 
 ### Association
 
-- has_one :order
-- belongs_to :user
+- belongs_to :order
