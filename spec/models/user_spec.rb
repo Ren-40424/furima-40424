@@ -82,7 +82,7 @@ RSpec.describe User, type: :model do
           @user.first_name = 'test'
           @user.last_name = 'test'
           @user.valid?
-          expect(@user.errors.full_messages).to include("First name is invalid", "Last name is invalid")
+          expect(@user.errors.full_messages).to include('First name is invalid', 'Last name is invalid')
         end
 
         it 'お名前カナ(全角)は、名字と名前がそれぞれ必須であること' do
@@ -96,7 +96,7 @@ RSpec.describe User, type: :model do
           @user.read_first_name = 'あ'
           @user.read_last_name = '一'
           @user.valid?
-          expect(@user.errors.full_messages).to include("Read first name is invalid", "Read last name is invalid")
+          expect(@user.errors.full_messages).to include('Read first name is invalid', 'Read last name is invalid')
         end
 
         it '生年月日が必須であること' do

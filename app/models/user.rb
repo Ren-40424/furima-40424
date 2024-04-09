@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :birth,           presence: true
 
   validates :password, format: {
-    with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
+    with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
   }
 
   validates :first_name, :last_name, format: {
@@ -22,5 +22,4 @@ class User < ApplicationRecord
   validates :read_first_name, :read_last_name, format: {
     with: /\A[ァ-ヶー]+\z/
   }
-
 end
