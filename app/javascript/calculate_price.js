@@ -1,11 +1,38 @@
-window.addEventListener('turbo:load', () => {
+window.addEventListener('turbo:load', setupPriceInputHandler);
+
+function setupPriceInputHandler() {
   const priceInput = document.getElementById("item-price");
-  priceInput.addEventListener("input", () => {
-    const inputValue = Math.floor(priceInput.value);
-    const addTaxDom = document.getElementById("add-tax-price");
-    const tax = Math.floor(inputValue / 10);
-    addTaxDom.innerHTML = (tax).toLocaleString();
-    const profitDom = document.getElementById("profit");
-    profitDom.innerHTML = (inputValue - tax).toLocaleString();
-  });
-})
+  priceInput.addEventListener("input", handlePriceInput);
+}
+
+function handlePriceInput() {
+  const inputValue = getInputValue();
+  updateTaxDisplay(inputValue);
+  updateProfitDisplay(inputValue);
+}
+
+function getInputValue() {
+  const priceInput = document.getElementById("item-price");
+  return Math.floor(priceInput.value);
+}
+
+function updateTaxDisplay(inputValue) {
+  const tax = calculateTax(inputValue);
+  const addTaxDom = document.getElementById("add-tax-price");
+  addTaxDom.innerHTML = tax.toLocaleString();
+}
+
+function calculateTax(inputValue) {
+  return Math.floor(inputValue / 10);
+}
+
+function updateProfitDisplay(inputValue) {
+  const profit = calculateProfit(inputValue);
+  const profitDom = document.getElementById("profit");
+  profitDom.innerHTML = profit.toLocaleString();
+}
+
+function calculateProfit(inputValue) {
+  const tax = calculateTax(inputValue);
+  return inputValue - tax;
+}
