@@ -22,4 +22,6 @@ class User < ApplicationRecord
   validates :read_first_name, :read_last_name, format: {
     with: /\A[ァ-ヶー]+\z/
   }
+
+  has_many :items
 end
