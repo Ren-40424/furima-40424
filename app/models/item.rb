@@ -20,4 +20,8 @@ class Item < ApplicationRecord
   validates :shipping_payer_id, numericality: { other_than: 1, message: "can't be blank" }
   validates :prefecture_id,     numericality: { other_than: 1, message: "can't be blank" }
   validates :shipping_date_id,  numericality: { other_than: 1, message: "can't be blank" }
+
+  def is_sold?
+    return Order.exists?(item_id: id)
+  end
 end
