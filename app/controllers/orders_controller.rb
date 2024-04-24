@@ -1,8 +1,12 @@
 class OrdersController < ApplicationController
   before_action :set_item
+  before_action :authenticate_user!, only: :index
 
   def index
     @order_destination = OrderDestination.new
+    return unless @item.user.id == current_user.id || @item.is_sold?
+
+    redirect_to root_path
   end
 
   def create
