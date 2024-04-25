@@ -1,6 +1,6 @@
 class OrderDestination
   include ActiveModel::Model
-  attr_accessor :item_id, :user_id, :order_id, :postal_code, :prefecture_id, :city, :address, :building_name, :phone_number
+  attr_accessor :item_id, :user_id, :order_id, :postal_code, :prefecture_id, :city, :address, :building_name, :phone_number, :token
   with_options presence: true do
     validates :item_id
     validates :user_id
@@ -9,6 +9,7 @@ class OrderDestination
     validates :city
     validates :address
     validates :phone_number, format: { with: /\A\d{10,11}\z/, allow_blank: true }
+    validates :token
   end
 
   def save
