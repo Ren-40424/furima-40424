@@ -23,16 +23,12 @@
       </span>
     </div>
 
-    <% if user_signed_in? && current_user.id == @item.user_id %>
+    <% if !@item.is_sold? && user_signed_in? && current_user.id == @item.user_id %>
       <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
       <p class="or-text">or</p>
       <%= link_to "削除", item_path(@item), data: {turbo_method: :delete}, class:"item-destroy" %>
-    <% elsif user_signed_in? && current_user.id != @item.user_id %>
-
-      <% unless @item.is_sold? %>
-        <%= link_to "購入画面に進む", item_orders_path(@item), data: { turbo: false } ,class:"item-red-btn"%>
-      <% end %>
-
+    <% elsif !@item.is_sold? && user_signed_in? && current_user.id != @item.user_id %>
+      <%= link_to "購入画面に進む", item_orders_path(@item), data: { turbo: false } ,class:"item-red-btn"%>
     <% end %>
 
     <div class="item-explain-box">
