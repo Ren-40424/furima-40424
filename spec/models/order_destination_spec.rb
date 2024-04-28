@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe OrderDestination, type: :model do
   before do
     item = FactoryBot.create(:item)
-    @order_destination = FactoryBot.build(:order_destination, item_id: item.id, user_id: item.user_id)
+    user = FactoryBot.create(:user)
+    @order_destination = FactoryBot.build(:order_destination, item_id: item.id, user_id: user.id)
   end
 
   describe '商品購入' do
