@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_11_143114) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_22_123047) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_143114) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "destinations", charset: "utf8", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.string "postal_code", null: false
+    t.integer "prefecture_id", null: false
+    t.string "city", null: false
+    t.string "address", null: false
+    t.string "building_name"
+    t.string "phone_number", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_destinations_on_order_id"
+  end
+
   create_table "items", charset: "utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
@@ -54,15 +67,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_143114) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "orders", charset: "utf8", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_orders_on_item_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "users", charset: "utf8", force: :cascade do |t|
     t.string "nickname", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "first_name"
-    t.string "last_name"
-    t.string "read_first_name"
-    t.string "read_last_name"
-    t.date "birth"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "read_first_name", null: false
+    t.string "read_last_name", null: false
+    t.date "birth", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -74,5 +96,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_143114) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "destinations", "orders"
   add_foreign_key "items", "users"
+  add_foreign_key "orders", "items"
+  add_foreign_key "orders", "users"
 end

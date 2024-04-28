@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :shipping_date
   has_one_attached :image
+  has_one :order
 
   validates :image,             presence: true
   validates :name,              presence: true
@@ -19,4 +20,8 @@ class Item < ApplicationRecord
   validates :shipping_payer_id, numericality: { other_than: 1, message: "can't be blank" }
   validates :prefecture_id,     numericality: { other_than: 1, message: "can't be blank" }
   validates :shipping_date_id,  numericality: { other_than: 1, message: "can't be blank" }
+
+  def is_sold?
+    Order.exists?(item_id: id)
+  end
 end
