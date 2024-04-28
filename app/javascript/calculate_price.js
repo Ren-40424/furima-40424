@@ -1,4 +1,5 @@
 window.addEventListener('turbo:load', setupPriceInputHandler);
+window.addEventListener("turbo:render", setupPriceInputHandler);
 
 function setupPriceInputHandler() {
   const priceInput = document.getElementById("item-price");
